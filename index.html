@@ -1,48 +1,67 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <title>3D Fitting Room</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sway Maverick - 3D Store</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
 </head>
 <body>
 
-<div class="ui">
-  <h2>AERO Collection</h2>
+    <header>
+        <h1>Sway Maverick</h1>
+        <p>Premium Streetwear | 360° View</p>
+    </header>
 
-  <!-- اختيار التيشيرت -->
-  <div>
-    <h3>T-Shirts</h3>
-    <button onclick="changeShirt('public/textures/shirt1.png')">Shirt 1</button>
-    <button onclick="changeShirt('public/textures/shirt2.png')">Shirt 2</button>
-  </div>
+    <main class="product-container">
+        <div class="model-section">
+            <model-viewer 
+                src="assets/models/human_model.glb" 
+                alt="A 3D model of our apparel" 
+                auto-rotate 
+                camera-controls 
+                shadow-intensity="1"
+                environment-image="neutral"
+                exposure="1.2">
+            </model-viewer>
+        </div>
 
-  <!-- اختيار البنطلون -->
-  <div>
-    <h3>Pants</h3>
-    <button onclick="changePant('public/pants/pant1.png')">Pant 1</button>
-  </div>
+        <div class="details-section">
+            <h2>Classic T-Shirt</h2>
+            <p class="price">EGP 500</p>
+            
+            <div class="fit-type">
+                <label for="fit">نوع التلبيس (Fit):</label>
+                <select id="fit" onchange="updateSizeGuide()">
+                    <option value="regular">Regular Fit</option>
+                    <option value="oversize">Oversize Fit</option>
+                </select>
+            </div>
 
-  <!-- المقاسات -->
-  <div>
-    <h3>Size</h3>
-    <select id="fitType">
-      <option value="regular">Regular</option>
-      <option value="oversize">Oversize</option>
-    </select>
+            <div class="size-selection">
+                <label for="size">اختر المقاس:</label>
+                <select id="size">
+                    <option value="S">Small (S)</option>
+                    <option value="M">Medium (M)</option>
+                    <option value="L">Large (L)</option>
+                    <option value="XL">Extra Large (XL)</option>
+                </select>
+            </div>
 
-    <select id="size">
-      <option>S</option>
-      <option>M</option>
-      <option>L</option>
-    </select>
+            <button class="btn-guide" onclick="openGuideModal()">شاهد دليل المقاسات (Size Guide)</button>
+            <button class="btn-buy">أضف إلى السلة</button>
+        </div>
+    </main>
 
-    <p id="sizeGuide"></p>
-  </div>
-</div>
+    <div id="sizeGuideModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeGuideModal()">&times;</span>
+            <h3 id="modalTitle">دليل المقاسات - Regular Fit</h3>
+            <img id="guideImage" src="assets/images/regular-guide.jpg" alt="Size Guide" style="width: 100%; border-radius: 8px;">
+        </div>
+    </div>
 
-<canvas id="canvas"></canvas>
-
-<script type="module" src="main.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
