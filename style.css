@@ -1,21 +1,139 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
 body {
-  margin: 0;
-  overflow: hidden;
-  font-family: Arial;
+    background-color: #f4f4f4;
+    color: #333;
 }
 
-canvas {
-  position: fixed;
-  top: 0;
-  left: 0;
+header {
+    text-align: center;
+    padding: 20px;
+    background-color: #111;
+    color: #fff;
 }
 
-.ui {
-  position: absolute;
-  z-index: 10;
-  background: white;
-  padding: 15px;
-  border-radius: 10px;
-  top: 20px;
-  left: 20px;
+.product-container {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 40px auto;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+.model-section {
+    flex: 1;
+    min-width: 300px;
+    height: 600px;
+    background-color: #e9ecef;
+}
+
+model-viewer {
+    width: 100%;
+    height: 100%;
+    /* لإخفاء أي خلفية للموديل لو حابب */
+    background-color: transparent; 
+}
+
+.details-section {
+    flex: 1;
+    min-width: 300px;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.details-section h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.price {
+    font-size: 1.5rem;
+    color: #d9534f;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+}
+
+button {
+    padding: 15px;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    transition: 0.3s;
+}
+
+.btn-guide {
+    background-color: #f0ad4e;
+    color: white;
+}
+
+.btn-guide:hover {
+    background-color: #ec971f;
+}
+
+.btn-buy {
+    background-color: #111;
+    color: white;
+}
+
+.btn-buy:hover {
+    background-color: #333;
+}
+
+/* Modal CSS (للنافذة المنبثقة بتاعت المقاسات) */
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    background-color: rgba(0,0,0,0.5); 
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 10% auto; 
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.close {
+    color: #aaa;
+    float: left;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
 }
