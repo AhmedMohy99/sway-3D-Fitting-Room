@@ -1,7 +1,131 @@
-/* --- Additions for Inputs and Tables --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #050505;
+    color: #ffffff;
+}
+
+.top-banner {
+    background-color: #00e5ff;
+    color: #000;
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 30px;
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+header {
+    background-color: #000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    border-bottom: 1px solid #222;
+}
+
+.logo h1 {
+    color: #00e5ff;
+    font-size: 2.2rem;
+    font-style: italic;
+    font-weight: 900;
+    letter-spacing: 1px;
+    margin-bottom: -5px;
+}
+
+.logo p {
+    color: #00e5ff;
+    font-size: 0.6rem;
+    letter-spacing: 1.5px;
+}
+
+nav a {
+    color: #00e5ff;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+nav a:hover {
+    color: #fff;
+}
+
+.icons {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: #00e5ff;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.cart-count {
+    background-color: #00e5ff;
+    color: #000;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 0.7rem;
+    position: relative;
+    top: -10px;
+    left: -5px;
+}
+
+.product-container {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 40px auto;
+    background: #111;
+    border-radius: 12px;
+    border: 1px solid #333;
+    box-shadow: 0 0 20px rgba(0, 229, 255, 0.05);
+    overflow: hidden;
+}
+
+.model-section {
+    flex: 1.5;
+    min-width: 300px;
+    height: 650px;
+    background: radial-gradient(circle, #222 0%, #050505 100%);
+}
+
+model-viewer {
+    width: 100%;
+    height: 100%;
+    outline: none;
+}
+
+.details-section {
+    flex: 1;
+    min-width: 300px;
+    padding: 50px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.details-section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 5px;
+    color: #fff;
+}
+
+.price {
+    font-size: 1.8rem;
+    color: #00e5ff;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
 
 .input-group {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
 .measurements-grid {
@@ -13,7 +137,14 @@
     flex: 1;
 }
 
-input[type="number"] {
+label {
+    font-size: 0.9rem;
+    color: #aaa;
+    margin-bottom: 5px;
+    display: block;
+}
+
+select, input[type="number"] {
     width: 100%;
     padding: 12px;
     background-color: #1a1a1a;
@@ -24,30 +155,102 @@ input[type="number"] {
     outline: none;
 }
 
-input[type="number"]:focus {
+select:focus, input[type="number"]:focus {
     border-color: #00e5ff;
 }
 
-/* Size Tables Styling */
+button {
+    padding: 15px;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-guide {
+    background-color: transparent;
+    color: #00e5ff;
+    border: 2px solid #00e5ff;
+}
+
+.btn-guide:hover {
+    background-color: #00e5ff;
+    color: #000;
+}
+
+.btn-buy {
+    background-color: #00e5ff;
+    color: #000;
+}
+
+.btn-buy:hover {
+    background-color: #fff;
+    box-shadow: 0 0 15px rgba(0, 229, 255, 0.4);
+}
+
+/* Modal and Tables Styling */
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 999; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    background-color: rgba(0,0,0,0.85); 
+}
+
+.modal-content {
+    background-color: #111; /* خلفية داكنة للنافذة */
+    margin: 8% auto; 
+    padding: 30px;
+    border: 1px solid #333;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 8px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 0 20px rgba(0, 229, 255, 0.1);
+}
+
+.close {
+    color: #aaa;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 35px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: #00e5ff;
+}
+
 .size-table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 15px;
-    color: #000;
+    color: #fff;
 }
 
 .size-table th, .size-table td {
-    border: 1px solid #ccc;
+    border: 1px solid #333;
     padding: 12px;
     text-align: center;
 }
 
 .size-table th {
     background-color: #000;
-    color: #fff;
+    color: #00e5ff;
     font-weight: bold;
 }
 
 .size-table tr:nth-child(even) {
-    background-color: #f9f9f9;
+    background-color: #1a1a1a;
 }
