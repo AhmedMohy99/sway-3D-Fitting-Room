@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
+<html lang="en" dir="ltr"> <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sway Maverick - 3D Store</title>
@@ -9,21 +8,41 @@
 </head>
 <body>
 
+    <div class="top-banner">
+        <span>Designed for those who CREATE THEIR OWN RULE!</span>
+        <span>Crafted For The Maverick</span>
+    </div>
+
     <header>
-        <h1>Sway Maverick</h1>
-        <p>Premium Streetwear | 360° View</p>
+        <div class="logo">
+            <h1>SWAY</h1>
+            <p>CRAFTED FOR THE MAVERICK</p>
+        </div>
+        <nav>
+            <a href="#">HOME</a>
+            <a href="#">SHOP</a>
+            <a href="#">HOW IT STARTED</a>
+            <a href="#">OUR STORY</a>
+            <a href="#">SIZE GUIDE</a>
+        </nav>
+        <div class="icons">
+            <span class="icon">🔍</span>
+            <span class="icon">🛒 <span class="cart-count">0</span></span>
+            <span class="icon">👤</span>
+            <span class="lang">En ⌄</span>
+        </div>
     </header>
 
     <main class="product-container">
         <div class="model-section">
             <model-viewer 
-                src="assets/models/human_model.glb" 
-                alt="A 3D model of our apparel" 
+                src="public/model/Model_FovaneEditDecimated.glb" 
+                alt="Sway 3D Model" 
                 auto-rotate 
                 camera-controls 
                 shadow-intensity="1"
                 environment-image="neutral"
-                exposure="1.2">
+                exposure="1.0">
             </model-viewer>
         </div>
 
@@ -32,7 +51,7 @@
             <p class="price">EGP 500</p>
             
             <div class="fit-type">
-                <label for="fit">نوع التلبيس (Fit):</label>
+                <label for="fit">Fit Type:</label>
                 <select id="fit" onchange="updateSizeGuide()">
                     <option value="regular">Regular Fit</option>
                     <option value="oversize">Oversize Fit</option>
@@ -40,7 +59,7 @@
             </div>
 
             <div class="size-selection">
-                <label for="size">اختر المقاس:</label>
+                <label for="size">Select Size:</label>
                 <select id="size">
                     <option value="S">Small (S)</option>
                     <option value="M">Medium (M)</option>
@@ -49,16 +68,16 @@
                 </select>
             </div>
 
-            <button class="btn-guide" onclick="openGuideModal()">شاهد دليل المقاسات (Size Guide)</button>
-            <button class="btn-buy">أضف إلى السلة</button>
+            <button class="btn-guide" onclick="openGuideModal()">View Size Guide</button>
+            <button class="btn-buy">ADD TO CART</button>
         </div>
     </main>
 
     <div id="sizeGuideModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeGuideModal()">&times;</span>
-            <h3 id="modalTitle">دليل المقاسات - Regular Fit</h3>
-            <img id="guideImage" src="assets/images/regular-guide.jpg" alt="Size Guide" style="width: 100%; border-radius: 8px;">
+            <h3 id="modalTitle" style="color: #000; margin-bottom: 15px;">Size Guide - Regular Fit</h3>
+            <img id="guideImage" src="public/images/regular-guide.jpg" alt="Size Guide" style="width: 100%; border-radius: 8px;">
         </div>
     </div>
 
