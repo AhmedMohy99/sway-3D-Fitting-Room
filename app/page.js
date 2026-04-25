@@ -1,46 +1,19 @@
-"use client";
-import { useState } from 'react';
-import FittingRoom from '../components/FittingRoom';
-import SizeGuideModal from '../components/SizeGuideModal';
+<section className="max-w-4xl mx-auto py-10 px-4">
+  <div className="flex justify-between items-end mb-6">
+    <div>
+      <h2 className="text-[#46daff] font-black italic text-3xl italic tracking-tighter uppercase">Maverick Phoenix</h2>
+      <p className="text-gray-500 text-xs">Premium Heavyweight Cotton</p>
+    </div>
+    <div className="text-right">
+      <p className="text-white font-bold">500 EGP</p>
+      <button className="text-[#46daff] text-[10px] underline tracking-widest uppercase">Size Guide</button>
+    </div>
+  </div>
 
-export default function Home() {
-  const [isModalOpen, setModalOpen] = useState(false);
-
-  return (
-    <main className="min-h-screen bg-black text-white p-4 md:p-10">
-      {/* Header based on your Sway Studio Logo */}
-      <header className="flex justify-between items-center max-w-5xl mx-auto mb-10">
-        <div>
-          <h1 className="text-3xl font-black italic text-[#46daff] uppercase tracking-tighter">
-            Sway Studio
-          </h1>
-          <p className="text-[10px] tracking-[0.3em] text-gray-500 uppercase">
-            AI Powered Fitting
-          </p>
-        </div>
-        <button className="bg-[#46daff] text-black text-[10px] font-bold px-5 py-2 rounded-full uppercase">
-          Try & Test
-        </button>
-      </header>
-
-      {/* Main Experience */}
-      <section className="max-w-3xl mx-auto">
-        <div className="flex justify-between items-end mb-4">
-          <h2 className="text-lg font-bold italic uppercase">The Catalyst Tee</h2>
-          <button 
-            onClick={() => setModalOpen(true)}
-            className="text-[#46daff] text-[10px] underline underline-offset-4 uppercase tracking-widest"
-          >
-            Size Guide
-          </button>
-        </div>
-
-        {/* This loads your GLB file from public/models/ */}
-        <FittingRoom modelPath="/models/maverick-phoenix-white.glb" />
-      </section>
-
-      {/* The SZ1 Table Popup */}
-      <SizeGuideModal isOpen={isModalOpen} onClose={() => setModalOpen(false)} />
-    </main>
-  );
-}
+  {/* THE 3D MODEL MIDDLE COMPONENT */}
+  <FittingRoom modelPath="/models/Model_Fovane_Sway.glb" />
+  
+  <button className="w-full mt-8 py-5 bg-white text-black font-black uppercase tracking-[0.2em] rounded-2xl hover:bg-[#46daff] transition-colors">
+     Confirm Order via WhatsApp
+  </button>
+</section>
