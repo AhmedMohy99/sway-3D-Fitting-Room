@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sway Studio 3D Fitting</title>
+    
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+    
+    <style>
+        /* Based on the logo colors provided */
+        :root {
+            --sway-black: #0a0a0a;
+            --sway-cyan: #46daff; /* That specific cyan glow */
+            --sway-glow: 0 0 15px rgba(70, 218, 255, 0.6);
+            --font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--sway-black);
+            color: #fff;
+            font-family: var(--font-family);
+            margin: 0; padding: 20px;
+            display: flex; flex-direction: column; align-items: center;
+        }
+
+        /* 3. Header Styles (Zara/Sway Aesthetic) */
+        header {
+            width: 100%; max-width: 800px;
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: var(--sway-cyan);
+            font-weight: 900; font-style: italic; font-size: 24px;
+            text-transform: uppercase; letter-spacing: -1px; margin: 0;
+        }
+
+        .header-sub {
+            color: #555; text-transform: uppercase; font-size: 8px; letter-spacing: 3px;
+        }
+
+        .btn-try {
+            background: var(--sway-cyan); color: #000;
+            border: none; border-radius: 20px; padding: 6px 15px;
+            font-size: 10px; font-weight: bold; text-transform: uppercase;
+            box-shadow: var(--sway-glow); cursor: pointer;
+        }
+
+        /* 4. The 3D Room Viewer Styles */
+        .fitting-room-container {
+            width: 100%; max-width: 800px; height: 500px;
+            background: #000; border: 1px solid #222;
+            border-radius: 25px; overflow: hidden; position: relative;
+        }
+
+        model-viewer {
+            width: 100%; height: 100%;
+            background-color: #000;
+        }
+
+        /* 5. Size Selection UI (Overlaid) */
+        .controls {
+            position: absolute; bottom: 20px; left: 0; right: 0;
+            display: flex; justify-content: center; gap: 10px;
+        }
+
+        .size-btn {
+            width: 50px; height: 50px;
+            background: rgba(255,255,255,0.05); color: #fff;
+            border: 1px solid #333; border-radius: 12px;
+            font-weight: bold; cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .size-btn:hover { background: rgba(255,255,255,0.1); }
+
+        .size-btn.active {
+            background: var(--sway-cyan); color: #000;
+            border-color: var(--sway-cyan);
+            box-shadow: var(--sway-glow);
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div>
+            <h1>Sway Studio</h1>
+            <div class="header-sub">3D Smart Fitting</div>
+        </div>
+        <button class="btn-try">Try & Test</button>
+    </header>
+
+    <div class="fitting-room-container">
+        <model-viewer id="swayViewer" 
+                      src="models/combined_sway_phoenix.glb" 
+                      alt="Sway Maverick 3D Tee" 
+                      camera-controls 
+                      auto-rotate 
+                      shadow-intensity="2" 
+                      environment-image="neutral" 
+                      exposure="1.3" 
+                      interaction-prompt="none">
+        </model-viewer>
+
+        <div class="controls">
+            <button class="size-btn" onclick="applySize(this, 'S')">S</button>
+            <button class="size-btn" onclick="applySize(this, 'M')">M</button>
+            <button class="size-btn active" onclick="applySize(this, 'L')">L</button>
+            <button class="size-btn" onclick="applySize(this, 'XL')">XL</button>
+            <button class="size-btn" onclick="applySize(this, '2XL')">2XL</button>
+        </div>
+    </div>
+
+    <script>
+        // Mapping size inputs to Morph Target (Shape Key) weights in your .glb
+        const sizeMap = {
+            'S':   0.0,
+            'M':   0.25,
+            'L':   0.5, // Standard L (no influence, but we highlight button)
+            'XL':  0.75,
+            '2XL': 1.0  // 2XL Shape Key made in Blender
+        };
+
+        const viewer = document.getElementById('swayViewer');
+
+        function applySize(buttonElement, size) {
+            // A. Update the 3D model geometry (physically morphs the shirt)
+            viewer.morphTargetInfluences = [sizeMap[size]];
+
+            // B. Update UI active state
+            const buttons = document.querySelectorAll('.size-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            buttonElement.classList.add('active');
+            
+            console.log(`Applied size: ${size} (Morph weight: ${sizeMap[size]})`);
+        }
+    </script>
+</body>
+</html>
