@@ -5,54 +5,43 @@ export default function FittingRoom({ modelPath }) {
   const viewerRef = useRef(null);
   const [activeSize, setActiveSize] = useState('L');
 
-  // Mapping sizes to Morph Targets (Shape Keys) made in Blender
-  const sizeMap = {
-    'S': 0,
-    'M': 0.33,
-    'L': 0.66,
-    'XL': 1.0
-  };
-
-  const handleSizeChange = (size) => {
+  const applySize = (size) => {
     setActiveSize(size);
     if (viewerRef.current) {
-      // Logic to trigger the Shape Key in your .glb file
-      viewerRef.current.morphTargetInfluences = [sizeMap[size]];
+      // Access the "Matrix" and apply the morph to the shirt mesh
+      const targetMorph = SIZE_MATRIX[size].morph;
+      viewerRef.current.morphTargetInfluences = [targetMorph];
     }
   };
 
   return (
-    <div className="relative w-full h-[600px] bg-swayBlack rounded-3xl border border-white/10 overflow-hidden shadow-2xl">
+    <div className="relative w-full h-[600px] bg-black rounded-3xl overflow-hidden shadow-2xl border border-white/5">
       <model-viewer
         ref={viewerRef}
-        src={modelPath}
+        src={modelPath} // This is your combined Body + Shirt file
         camera-controls
         auto-rotate
         shadow-intensity="1"
-        exposure="1.2"
         environment-image="neutral"
-        alt="Sway Maverick 3D Tee"
+        exposure="1.2"
+        interaction-prompt="none"
         style={{ width: '100%', height: '100%' }}
       >
-        {/* UI Overlay */}
-        <div className="absolute bottom-8 left-0 right-0 flex flex-col items-center gap-6">
-          
-          {/* Size Selector */}
-          <div className="flex gap-2 bg-black/40 backdrop-blur-md p-2 rounded-2xl border border-white/5">
-            {['S', 'M', 'L', 'XL'].map((size) => (
-              <button
-                key={size}
-                onClick={() => handleSizeChange(size)}
-                className={`w-14 h-14 rounded-xl font-bold transition-all ${
-                  activeSize === size 
-                  ? 'bg-swayCyan text-black shadow-swayGlow' 
-                  : 'bg-white/5 text-white hover:bg-white/10'
-                }`}
-              >
-                {size}
-              </button>
-            ))}
-          </div>
+        {/* SIZE SELECTOR UI */}
+        <div className="absolute bottom-10 left-0 right-0 flex justify-center gap-2">
+          {Object.keys(SIZE_MATRIX).map((size) => (
+            <button
+              key={size}
+              onClick={() => applySize(size)}
+              className={`w-14 h-14 rounded-xl font-bold transition-all ${
+                activeSize === size 
+                ? 'bg-[#46daff] text-black shadow-[0_0_20px_#46daff]' 
+                : 'bg-white/5 text-white hover:bg-white/10'
+              }`}
+            >
+              {size}
+            </button>
+          ))}
         </div>
       </model-viewer>
     </div>
