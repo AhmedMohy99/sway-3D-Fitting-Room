@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sway Maverick - 3D Store</title>
+    <meta name="description" content="Sway Maverick - Virtual 3D Fitting Room. Try on streetwear with realistic body sizing.">
+    <meta name="keywords" content="3D fitting room, virtual try-on, streetwear, Sway Maverick">
+    <title>Sway Maverick - 3D Virtual Fitting Room</title>
     <link rel="stylesheet" href="style.css">
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
 </head>
@@ -45,8 +47,10 @@
                 shadow-intensity="1"
                 environment-image="neutral"
                 exposure="1.0"
-                orientation="0deg 0deg 0deg"> 
+                orientation="0deg 0deg 0deg"
+                loading="eager"> 
             </model-viewer>
+            <!-- Loading indicator will be injected here by JavaScript -->
         </div>
 
         <div class="details-section">
@@ -64,11 +68,11 @@
             <div class="measurements-grid">
                 <div class="input-group">
                     <label for="userHeight">Height (cm):</label>
-                    <input type="number" id="userHeight" value="175" oninput="adjustBodySize()">
+                    <input type="number" id="userHeight" value="175" min="150" max="210" oninput="adjustBodySize()">
                 </div>
                 <div class="input-group">
                     <label for="userWeight">Weight (kg):</label>
-                    <input type="number" id="userWeight" value="70" oninput="adjustBodySize()">
+                    <input type="number" id="userWeight" value="70" min="40" max="150" oninput="adjustBodySize()">
                 </div>
             </div>
 
@@ -108,21 +112,23 @@
             <div class="input-group">
                 <label for="size">Select Size:</label>
                 <select id="size">
-                    </select>
+                    <!-- Options populated by JavaScript -->
+                </select>
             </div>
 
-            <button class="btn-guide" onclick="openGuideModal()">View Size Guide</button>
-            <button class="btn-buy">ADD TO CART</button>
+            <button class="btn-guide" onclick="openGuideModal()">📏 View Size Guide</button>
+            <button class="btn-buy" onclick="addToCart()">🛒 ADD TO CART</button>
         </div>
     </main>
 
+    <!-- Size Guide Modal -->
     <div id="sizeGuideModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeGuideModal()">&times;</span>
-            <h3 id="modalTitle" style="color: #00e5ff; margin-bottom: 20px;">Size Guide</h3>
+            <h3 id="modalTitle" style="color: #00e5ff; margin-bottom: 20px;">Size Guide - Over Size Fit</h3>
             
             <table id="regularTable" class="size-table">
-                <tr><th>SIZE</th><th>WIDTH (عرض)</th><th>LENGTH (طول)</th></tr>
+                <tr><th>SIZE</th><th>WIDTH (عرض) cm</th><th>LENGTH (طول) cm</th></tr>
                 <tr><td>1 (S)</td><td>52</td><td>68</td></tr>
                 <tr><td>2 (M)</td><td>54</td><td>70</td></tr>
                 <tr><td>3 (L)</td><td>56</td><td>72</td></tr>
@@ -131,15 +137,46 @@
             </table>
 
             <table id="oversizeTable" class="size-table" style="display:none;">
-                <tr><th>SIZE</th><th>WIDTH (عرض)</th><th>LENGTH (طول)</th></tr>
+                <tr><th>SIZE</th><th>WIDTH (عرض) cm</th><th>LENGTH (طول) cm</th></tr>
                 <tr><td>1 (S)</td><td>54</td><td>72.5</td></tr>
                 <tr><td>2 (M)</td><td>57</td><td>73.5</td></tr>
                 <tr><td>3 (L)</td><td>60</td><td>74.5</td></tr>
                 <tr><td>4 (XL)</td><td>63</td><td>76.5</td></tr>
             </table>
+
+            <div style="margin-top: 20px; padding: 15px; background-color: #1a1a1a; border-radius: 4px; border-left: 3px solid #00e5ff;">
+                <p style="color: #aaa; font-size: 0.85rem; line-height: 1.6;">
+                    <strong style="color: #00e5ff;">💡 Tip:</strong> Our size recommendation is based on your height and weight. 
+                    For oversize fits, we recommend sizing down if you prefer a less baggy look. 
+                    For regular fits, choose your recommended size for the best fit.
+                </p>
+            </div>
         </div>
     </div>
 
     <script src="script.js"></script>
+    
+    <!-- Add to Cart Function (Placeholder) -->
+    <script>
+        function addToCart() {
+            const selectedProduct = document.getElementById("productName").textContent;
+            const selectedSize = document.getElementById("size").value;
+            const sizeName = document.getElementById("size").options[document.getElementById("size").selectedIndex].text;
+            
+            // Update cart count
+            const cartCount = document.querySelector('.cart-count');
+            cartCount.textContent = parseInt(cartCount.textContent) + 1;
+            
+            // Show success notification
+            showNotification(`✓ ${selectedProduct} (${sizeName}) added to cart!`, 'success');
+            
+            // Here you would typically send this to your backend/cart system
+            console.log('Added to cart:', {
+                product: selectedProduct,
+                size: selectedSize,
+                fitType: document.getElementById('fitValue').value
+            });
+        }
+    </script>
 </body>
 </html>
