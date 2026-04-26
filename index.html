@@ -1,120 +1,64 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sway Maverick - 3D Store</title>
-    <link rel="stylesheet" href="style.css">
-    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
-</head>
-<body>
+<div class="details-section">
+    <h2 id="productName">The Maverick Phoenix</h2>
+    <p class="price">EGP 500</p>
 
-    <div class="top-banner">
-        <span>Designed for those who CREATE THEIR OWN RULE!</span>
-        <span>Crafted For The Maverick</span>
+    <div class="input-group">
+        <label for="genderSelect">Gender (المجسم):</label>
+        <select id="genderSelect" onchange="changeGender()">
+            <option value="public/model/joe__realistic_human_3d_model.glb">Male</option>
+            <option value="public/model/FemaleBodyWithShirt.glb">Female</option>
+        </select>
     </div>
 
-    <header>
-        <div class="logo">
-            <h1>SWAY</h1>
-            <p>CRAFTED FOR THE MAVERICK</p>
+    <div class="measurements-grid">
+        <div class="input-group">
+            <label for="userHeight">Height (cm):</label>
+            <input type="number" id="userHeight" value="175" oninput="adjustBodySize()">
         </div>
-        <nav>
-            <a href="#">HOME</a>
-            <a href="#">SHOP</a>
-            <a href="#">HOW IT STARTED</a>
-            <a href="#">OUR STORY</a>
-            <a href="#">SIZE GUIDE</a>
-        </nav>
-        <div class="icons">
-            <span class="icon">🔍</span>
-            <span class="icon">🛒 <span class="cart-count">0</span></span>
-            <span class="icon">👤</span>
-            <span class="lang">En ⌄</span>
-        </div>
-    </header>
-
-    <main class="product-container">
-        <div class="model-section">
-            <model-viewer 
-                id="myModelViewer"
-                src="public/model/Model_FovaneEditDecimated.glb" 
-                alt="Sway 3D Model" 
-                auto-rotate 
-                camera-controls 
-                shadow-intensity="1"
-                environment-image="neutral"
-                exposure="1.0"
-                orientation="-90deg 0deg 0deg"> 
-            </model-viewer>
-        </div>
-
-        <div class="details-section">
-            <h2>Classic T-Shirt</h2>
-            <p class="price">EGP 500</p>
-
-            <div class="input-group">
-                <label for="itemSelect">Display Item:</label>
-                <select id="itemSelect" onchange="changeModel()">
-                    <option value="body">Human Body Model</option>
-                    <option value="tshirt">Maverick Phoenix White T-Shirt</option>
-                </select>
-            </div>
-
-            <div class="measurements-grid">
-                <div class="input-group">
-                    <label for="userHeight">Height (cm):</label>
-                    <input type="number" id="userHeight" value="175" oninput="adjustBodySize()">
-                </div>
-                <div class="input-group">
-                    <label for="userWeight">Weight (kg):</label>
-                    <input type="number" id="userWeight" value="70" oninput="adjustBodySize()">
-                </div>
-            </div>
-            
-            <div class="input-group">
-                <label for="fit">Fit Type:</label>
-                <select id="fit" onchange="updateSizeGuide()">
-                    <option value="regular">Regular Fit</option>
-                    <option value="oversize">Oversize Fit</option>
-                </select>
-            </div>
-
-            <div class="input-group">
-                <label for="size">Select Size:</label>
-                <select id="size">
-                    </select>
-            </div>
-
-            <button class="btn-guide" onclick="openGuideModal()">View Size Guide</button>
-            <button class="btn-buy">ADD TO CART</button>
-        </div>
-    </main>
-
-    <div id="sizeGuideModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeGuideModal()">&times;</span>
-            <h3 id="modalTitle" style="color: #00e5ff; margin-bottom: 20px;">Size Guide - Regular Fit</h3>
-            
-            <table id="regularTable" class="size-table">
-                <tr><th>SIZE</th><th>WIDTH (عرض)</th><th>LENGTH (طول)</th></tr>
-                <tr><td>1 (S)</td><td>52</td><td>68</td></tr>
-                <tr><td>2 (M)</td><td>54</td><td>70</td></tr>
-                <tr><td>3 (L)</td><td>56</td><td>72</td></tr>
-                <tr><td>4 (XL)</td><td>58</td><td>74</td></tr>
-                <tr><td>5 (XXL)</td><td>60</td><td>76</td></tr>
-            </table>
-
-            <table id="oversizeTable" class="size-table" style="display:none;">
-                <tr><th>SIZE</th><th>WIDTH (عرض)</th><th>LENGTH (طول)</th></tr>
-                <tr><td>1 (S)</td><td>54</td><td>72.5</td></tr>
-                <tr><td>2 (M)</td><td>57</td><td>73.5</td></tr>
-                <tr><td>3 (L)</td><td>60</td><td>74.5</td></tr>
-                <tr><td>4 (XL)</td><td>63</td><td>76.5</td></tr>
-            </table>
+        <div class="input-group">
+            <label for="userWeight">Weight (kg):</label>
+            <input type="number" id="userWeight" value="70" oninput="adjustBodySize()">
         </div>
     </div>
 
-    <script src="script.js"></script>
-</body>
-</html>
+    <div class="input-group">
+        <label for="itemSelect">Select Product:</label>
+        <select id="itemSelect" onchange="handleItemChange()">
+            
+            <optgroup label="Over Size T-Shirts">
+                <option value="public/textures/maverick-dark-black.jpg" data-fit="oversize" data-type="tshirt">The Maverick Phoenix (Dark Black)</option>
+                <option value="public/textures/maverick-white-base.jpg" data-fit="oversize" data-type="tshirt">The Maverick Phoenix (White Base)</option>
+                <option value="public/textures/catalyst-tee.jpg" data-fit="oversize" data-type="tshirt">The Catalyst Tee</option>
+                <option value="public/textures/yellowish-splash.jpg" data-fit="oversize" data-type="tshirt">Yellowish Splash</option>
+                <option value="public/textures/greenish-splash.jpg" data-fit="oversize" data-type="tshirt">Greenish Splash</option>
+            </optgroup>
+
+            <optgroup label="Regular Size Fits">
+                <option value="public/textures/powder-blue.jpg" data-fit="regular" data-type="tshirt">The Powder Blue Venture Tee</option>
+                <option value="public/textures/bluish-splash.jpg" data-fit="regular" data-type="tshirt">Bluish Splash</option>
+                <option value="public/textures/cyber-crescent.jpg" data-fit="regular" data-type="tshirt">CYBER CRESCENT</option>
+            </optgroup>
+
+            <optgroup label="Sweatpants">
+                <option value="public/textures/black-flux.jpg" data-fit="regular" data-type="pants">Black Flux Sweatpants</option>
+                <option value="public/textures/light-code.jpg" data-fit="regular" data-type="pants">Light Code Sweatpants</option>
+            </optgroup>
+
+        </select>
+    </div>
+    
+    <div class="input-group">
+        <label>Fit Type:</label>
+        <input type="text" id="fitDisplay" value="Over Size" readonly style="background-color: #222; color: #00e5ff; font-weight: bold;">
+        <input type="hidden" id="fitValue" value="oversize">
+    </div>
+
+    <div class="input-group">
+        <label for="size">Select Size:</label>
+        <select id="size">
+            </select>
+    </div>
+
+    <button class="btn-guide" onclick="openGuideModal()">View Size Guide</button>
+    <button class="btn-buy">ADD TO CART</button>
+</div>
