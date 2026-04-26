@@ -9,6 +9,7 @@ const modalTitle = document.getElementById("modalTitle");
 const regularTable = document.getElementById("regularTable");
 const oversizeTable = document.getElementById("oversizeTable");
 
+// Function to handle product change
 function handleItemChange() {
     const selectElement = document.getElementById("itemSelect");
     const selectedOption = selectElement.options[selectElement.selectedIndex];
@@ -29,6 +30,7 @@ function handleItemChange() {
     changeTexture(selectedOption.value, itemType);
 }
 
+// Function to update size guides
 function updateSizeGuideOptions(fitType) {
     sizeSelect.innerHTML = ""; 
 
@@ -60,6 +62,7 @@ function updateSizeGuideOptions(fitType) {
     }
 }
 
+// Function to swap textures (Smart Targeting)
 async function changeTexture(textureUrl, itemType) {
     if (!modelViewer.model) return;
 
@@ -79,19 +82,23 @@ async function changeTexture(textureUrl, itemType) {
 
         if (targetMaterial) {
             targetMaterial.pbrMetallicRoughness.baseColorTexture.setTexture(texture);
+            console.log(`Successfully applied texture to ${targetMaterialName}`);
         } else {
-            console.error("Could not find material: " + targetMaterialName);
+            console.warn(`Warning: Could not find material named ${targetMaterialName} in this 3D model.`);
         }
     } catch (error) {
         console.error("Error applying texture:", error);
     }
 }
 
+// Function to swap between Male and Female
 function changeGender() {
     const selectedGenderUrl = document.getElementById("genderSelect").value;
     modelViewer.src = selectedGenderUrl;
+    console.log("Loading new model:", selectedGenderUrl);
 }
 
+// Function to adjust body dimensions based on Height/Weight
 function adjustBodySize() {
     const height = parseFloat(document.getElementById("userHeight").value) || 175;
     const weight = parseFloat(document.getElementById("userWeight").value) || 70;
@@ -102,11 +109,14 @@ function adjustBodySize() {
     modelViewer.scale = `${weightScale} ${heightScale} ${weightScale}`;
 }
 
+// Auto-trigger when any 3D model finishes loading
 modelViewer.addEventListener("load", () => {
+    console.log("Model loaded successfully!");
     handleItemChange(); 
     adjustBodySize();   
 });
 
+// Modal controls
 function openGuideModal() { modal.style.display = "block"; }
 function closeGuideModal() { modal.style.display = "none"; }
 window.onclick = function(event) { if (event.target == modal) modal.style.display = "none"; }
